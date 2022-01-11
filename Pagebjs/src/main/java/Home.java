@@ -34,7 +34,6 @@ public class Home {
    		login.click();
    		//below line added for git purpose
    		login.click();
-   		 
    	 }
 
 }
