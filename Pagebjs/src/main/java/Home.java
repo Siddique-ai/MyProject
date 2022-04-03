@@ -32,8 +32,7 @@ public class Home {
 
    	 public void Clickonllogin() {
    		login.click();
-   		//below line added for git purpose
-   		
+   		//below line removed for git purpose
    	 }
 
 }
