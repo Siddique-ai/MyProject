@@ -40,7 +40,7 @@ public void then_i_navigate_to_www_gmail_com() {
 @Then("I enter siddiquetestingselenium@gmail.com into input field having xpath \\(input[@id={string}])")
 public void i_enter_siddiquetestingselenium_gmail_com_into_input_field_having_xpath_input_id(String string) {
 	//Send email address
-	driver.findElement(By.xpath("//input[@id='identifierId']")).sendKeys("siddiquetestingselenium@gmail.com");
+	driver.findElement(By.xpath("//input[@id='identifierId']")).sendKeys("Your email address");
     
 }
 
@@ -54,7 +54,7 @@ public void click_on_element_having_xpath_div_id(String string) {
 public void i_enter_incubytes_into_input_field_having_xpath_input_name(Integer int1, String string) throws InterruptedException {
 	WebElement passwordButton = driver.findElement(By.xpath("//input[@name='Passwd']"));
 //	Thread.sleep(2000); 
-	passwordButton.sendKeys("Incubytes@850");
+	passwordButton.sendKeys("Your email password");
   
 }
 
