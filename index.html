@@ -6,12 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   <title>Item Lister</title>
-  <style>
-    /* Add styles for green background */
-    .list-group-item:nth-child(odd) {
-      background-color: green;
-    }
-  </style>
 </head>
 <body>
   <header id="main-header" class="bg-success text-white p-4 mb-3">
@@ -37,13 +31,17 @@
   </div>
 
   <script>
-    // Add script to change font color of 2nd item to green
-    const secondItem = document.querySelector('#items li:nth-child(2)');
-    secondItem.style.color = 'green';
+    // Adding Hello World before Item Lister
+    let headerTitle = document.getElementById("header-title");
+    let parentElement = headerTitle.parentElement;
+    let helloText = document.createTextNode("Hello World ");
+    parentElement.insertBefore(helloText, headerTitle);
 
-    // Add script to change background color of odd items to green
-    const oddItems = document.querySelectorAll('#items li:nth-child(odd)');
-    oddItems.forEach(item => item.style.backgroundColor = 'green');
+    // Adding Hello World before Item 1
+    let items = document.getElementById("items");
+    let firstChild = items.firstElementChild;
+    let helloText2 = document.createTextNode("Hello World ");
+    firstChild.insertBefore(helloText2, firstChild.firstChild);
   </script>
 </body>
 </html>
