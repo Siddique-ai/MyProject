@@ -1,0 +1,43 @@
+<script>
+  // Adding Hello World before Item Lister
+  let headerTitle = document.getElementById("header-title");
+  let parentElement = headerTitle.parentElement;
+  let helloText = document.createTextNode("Hello World ");
+  parentElement.insertBefore(helloText, headerTitle);
+
+  // Adding Hello World before Item 1
+  let items = document.getElementById("items");
+  let firstChild = items.firstElementChild;
+  let helloText2 = document.createTextNode("Hello World ");
+  firstChild.insertBefore(helloText2, firstChild.firstChild);
+
+  // Add event listener to form submit button
+  let form = document.querySelector('form');
+  let input = document.querySelector('input[type="text"]');
+  form.addEventListener('submit', addItem);
+
+  // Function to add item to list
+  function addItem(e) {
+    e.preventDefault();
+    let newItemText = input.value;
+    let newItem = document.createElement('li');
+    newItem.className = 'list-group-item';
+    newItem.appendChild(document.createTextNode(newItemText));
+    items.appendChild(newItem);
+    // Save item to local storage
+    saveItemToLocalStorage(newItemText);
+    input.value = '';
+  }
+
+  // Function to save item to local storage
+  function saveItemToLocalStorage(item) {
+    let items;
+    if (localStorage.getItem('items') === null) {
+      items = [];
+    } else {
+      items = JSON.parse(localStorage.getItem('items'));
+    }
+    items.push(item);
+    localStorage.setItem('items', JSON.stringify(items));
+  }
+</script>
