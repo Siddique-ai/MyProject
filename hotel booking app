@@ -1,0 +1,93 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>User Information</title>
+  <script>
+    function saveData() {
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+
+      // Create an object to store the user data
+      var userData = {
+        name: name,
+        email: email,
+        phone: phone
+      };
+
+      // Retrieve existing data from local storage
+      var existingData = localStorage.getItem('userData');
+
+      if (existingData) {
+        // Parse existing data and add new user data
+        var users = JSON.parse(existingData);
+        users.push(userData);
+        localStorage.setItem('userData', JSON.stringify(users));
+      } else {
+        // If no existing data, create a new array with user data
+        var users = [userData];
+        localStorage.setItem('userData', JSON.stringify(users));
+      }
+
+      // Clear input fields
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+
+      // Display the newly entered data
+      displayData();
+    }
+
+    function displayData() {
+      // Retrieve user data from local storage
+      var users = localStorage.getItem('userData');
+
+      if (users) {
+        // Parse and format the user data for display
+        users = JSON.parse(users);
+        var html = '<h2>Entered Data:</h2>';
+        html += '<ul>';
+
+        users.forEach(function(user) {
+          html += '<li>Name: ' + user.name + '</li>';
+          html += '<li>Email: ' + user.email + '</li>';
+          html += '<li>Phone: ' + user.phone + '</li>';
+          html += '<hr>';
+        });
+
+        html += '</ul>';
+
+        // Set the HTML content to display the user data
+        document.getElementById('userDataContainer').innerHTML = html;
+      } else {
+        // If no user data, display a message
+        document.getElementById('userDataContainer').innerHTML = 'No data entered yet.';
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>User Information</h1>
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+  </div>
+  <div>
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" required>
+  </div>
+  <div>
+    <button onclick="saveData()">Submit</button>
+  </div>
+  <div id="userDataContainer"></div>
+
+  <script>
+    // Display the entered data initially
+    displayData();
+  </script>
+</body>
+</html>
