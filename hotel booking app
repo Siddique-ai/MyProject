@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>User Information</title>
@@ -38,6 +38,25 @@
       displayData();
     }
 
+    function deleteData(index) {
+      // Retrieve user data from local storage
+      var users = localStorage.getItem('userData');
+
+      if (users) {
+        // Parse the user data
+        users = JSON.parse(users);
+
+        // Remove the entry at the specified index
+        users.splice(index, 1);
+
+        // Update the local storage
+        localStorage.setItem('userData', JSON.stringify(users));
+
+        // Display the updated data
+        displayData();
+      }
+    }
+
     function displayData() {
       // Retrieve user data from local storage
       var users = localStorage.getItem('userData');
@@ -48,10 +67,11 @@
         var html = '<h2>Entered Data:</h2>';
         html += '<ul>';
 
-        users.forEach(function(user) {
+        users.forEach(function(user, index) {
           html += '<li>Name: ' + user.name + '</li>';
           html += '<li>Email: ' + user.email + '</li>';
           html += '<li>Phone: ' + user.phone + '</li>';
+          html += '<button onclick="deleteData(' + index + ')">Delete</button>';
           html += '<hr>';
         });
 
