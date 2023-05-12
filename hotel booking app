@@ -3,6 +3,8 @@
 <head>
   <title>User Information</title>
   <script>
+    var editIndex = -1; // Global variable to track the index of the entry being edited
+
     function saveData() {
       var name = document.getElementById('name').value;
       var email = document.getElementById('email').value;
@@ -21,7 +23,14 @@
       if (existingData) {
         // Parse existing data and add new user data
         var users = JSON.parse(existingData);
-        users.push(userData);
+        if (editIndex >= 0) {
+          // If editing an existing entry, update the email ID
+          users[editIndex].email = email;
+          editIndex = -1; // Reset the edit index
+        } else {
+          // If adding a new entry, push the user data
+          users.push(userData);
+        }
         localStorage.setItem('userData', JSON.stringify(users));
       } else {
         // If no existing data, create a new array with user data
@@ -57,6 +66,20 @@
       }
     }
 
+    function editData(index) {
+      // Retrieve user data from local storage
+      var users = localStorage.getItem('userData');
+
+      if (users) {
+        // Parse the user data
+        users = JSON.parse(users);
+
+        // Set the edit index and populate the input field with the email ID
+        editIndex = index;
+        document.getElementById('email').value = users[index].email;
+      }
+    }
+
     function displayData() {
       // Retrieve user data from local storage
       var users = localStorage.getItem('userData');
@@ -71,6 +94,7 @@
           html += '<li>Name: ' + user.name + '</li>';
           html += '<li>Email: ' + user.email + '</li>';
           html += '<li>Phone: ' + user.phone + '</li>';
+          html += '<button onclick="editData(' + index + ')">Edit</button>';
           html += '<button onclick="deleteData(' + index + ')">Delete</button>';
           html += '<hr>';
         });
@@ -86,28 +110,3 @@
     }
   </script>
 </head>
-<body>
-  <h1>User Information</h1>
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" id="name" required>
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" required>
-  </div>
-  <div>
-    <label for="phone">Phone:</label>
-    <input type="text" id="phone" required>
-  </div>
-  <div>
-    <button onclick="saveData()">Submit</button>
-  </div>
-  <div id="userDataContainer"></div>
-
-  <script>
-    // Display the entered data initially
-    displayData();
-  </script>
-</body>
-</html>
